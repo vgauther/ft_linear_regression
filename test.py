@@ -12,9 +12,13 @@ import numpy as np
 
 data = pandas.read_csv("./data.csv")
 
+mileage = data.km
+price = data.price
+pricenv=price
+
 
 # On décompose le dataset et on le transforme en matrices pour pouvoir effectuer notre calcul
-X = np.matrix([np.ones(data.shape[0]), data['km'].values]).T
+X = np.matrix([np.ones(data.shape[0]), data['km']]).T
 y = np.matrix(data['price']).T
 
 # On effectue le calcul exact du paramètre theta
@@ -30,5 +34,5 @@ m =len(X)
 for i in range(m): 
     X[i,1] = theta[0] + theta[1] * y[i]
     
-plt.plot(data['km'], data['price'], 'ro', markersize=4)
+plt.plot(X[:,1], y, 'ro', markersize=4)
 plt.show()
