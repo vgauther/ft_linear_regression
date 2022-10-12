@@ -1,1 +1,1 @@
-import pandasdata = pandas.read_csv("./data.csv")
+import pandasimport matplotlib.pyplot as pltdata = pandas.read_csv("./data.csv")mileage = data.kmprice = data.priceplt.plot(price, mileage)
