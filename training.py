@@ -10,31 +10,45 @@ import pandas
 import matplotlib.pyplot as plt
 
 
-def estimation(x):
-    global theta
-    return theta[0] + x * theta[1]
+def estimation(x, t0, t1):
+    return t0 + (x * t1)
 
-theta = [0,0]
+theta = [0.0,0.0]
 data = pandas.read_csv("./data.csv")
+
 
 mileage = data.km
 price = data.price
-lr = 0.1
+print(price[0])
+lr = 0.15
 m = len(price)
+std = mileage[0:].std()
+mean = mileage[0:].mean()
+kmtrage = (mileage[0:] - mean) / std
+# for d in range(m):
+    # mileage[d] = (mileage[d] - mean) / std
 
-tmp = [0,0]
+for z in range(19):
+    tmp = [0,0]
+    for i in range(m):
+        tmpp = estimation(kmtrage[i], theta[0], theta[1]) - price[i]
+        tmp[0] += tmpp
+        tmp[1] += tmpp * kmtrage[i]
+    theta[0] -= lr/m * tmp[0]
+    theta[1] -= lr/m * tmp[1]
+print(lr)
+print(m)
 
-for i in range (m):
-    tmp[0] += (estimation(mileage[i])-price[i])
-    tmp[1] += (estimation(mileage[i])-price[i]) * mileage[i]
-    
-theta[0] = (lr/m) * tmp[0]
-theta[1] = (lr/m) * tmp[1]
+print(theta[0])
+print(theta[1])
+
+i = 0
+
+# for i in range(m):
+    # price[i] = theta[0] + theta[1] * mileage[i]
+
+# plt.plot(mileage, data['price'], markersize=4)
+# plt.show()
 
 
-    
-plt.plot(data['km'], data['price'], markersize=4)
-plt.show()
-
-
-print(price)
+print(estimation((42000-mean)/std, theta[0], theta[1]))
