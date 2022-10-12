@@ -49,3 +49,4 @@ plt.show()
 
 
 print(estimation((42000-np.mean(Xo))/np.std(Xo)))
+
