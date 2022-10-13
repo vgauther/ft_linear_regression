@@ -9,88 +9,44 @@ Created on Wed Oct 12 18:12:11 2022
 import pandas
 import matplotlib.pyplot as plt
 import numpy as np
+from src import Prediction
 
-
-<<<<<<< HEAD
+# fonction lineaire
 def estimation(x, theta):
-    
     return theta[0] + x * theta[1]
-=======
-def estimation(x, t0, t1):
-    return t0 + (x * t1)
->>>>>>> cc797f96b8339ea50ddaa7227a35e0cccc2cb2ad
 
-theta = [0.0,0.0]
-data = pandas.read_csv("./data.csv")
+def main():
+    # valeur initial de theta0 et theta1
+    theta = [0.0,0.0]
 
-<<<<<<< HEAD
-Xo = np.array(data['km'])
-y = np.array(data['price'])
+    # ouverture du dataset
+    data = pandas.read_csv("./data.csv")
 
-X = (Xo-np.mean(Xo))/np.std(Xo) 
+    # creation de tableau pour chaque colone
+    mileage = np.array(data['km'])
+    price = np.array(data['price'])
 
-lr = 0.2
-m = len(y)
+    # on normalise la data pour faire la regression lineaire
+    mileage_norm = (mileage - np.mean(mileage)) / np.std(mileage)
 
-for i in range (100):
-    tmp0 = lr*(1/m)*sum(estimation(X) - y)
-    tmp1 =lr*(1/m)*sum((estimation(X) - y)*X)
+    # learning rate & nombre cas
+    lr = 0.2
+    m = len(price)
 
-    theta[0] = (theta[0] - tmp0) 
-    theta[1] = (theta[1] - tmp1) 
- 
+    pr = Prediction(0, 0)
+    pr.training(100, lr, m, mileage_norm, price)
+    pr.scale(mileage_norm, mileage)
 
-P1 = [Xo[0],Xo[6]]
-P2 = [estimation(X, theta)[0],estimation(X, theta)[6]]
-codir = (P2[1] - P2[0]) / (P1[1] - P1[0])
-ordo = P2[0] - codir * P1[0]
+    # on replace les données normalisé sur la nouvelle droite
+    Yn = pr.theta1 * mileage + pr.theta0
 
-Yn = codir * Xo + ordo
+    # tetha finaux
+    thetanew = [pr.theta0, pr.theta1]
 
-thetanew = [ordo, codir]
+    # affichage des points d'or
+    plt.plot(mileage, Yn, markersize=4)
+    plt.plot(mileage, price,'ro', color='g')
+    plt.show()
 
-plt.plot(Xo, Yn, markersize=4)
-plt.plot(Xo,y,'ro', color='g')
-plt.show()
-
-
-print(estimation((42000-np.mean(Xo))/np.std(Xo)))
-
-=======
-
-mileage = data.km
-price = data.price
-print(price[0])
-lr = 0.15
-m = len(price)
-std = mileage[0:].std()
-mean = mileage[0:].mean()
-kmtrage = (mileage[0:] - mean) / std
-# for d in range(m):
-    # mileage[d] = (mileage[d] - mean) / std
-
-for z in range(19):
-    tmp = [0,0]
-    for i in range(m):
-        tmpp = estimation(kmtrage[i], theta[0], theta[1]) - price[i]
-        tmp[0] += tmpp
-        tmp[1] += tmpp * kmtrage[i]
-    theta[0] -= lr/m * tmp[0]
-    theta[1] -= lr/m * tmp[1]
-print(lr)
-print(m)
-
-print(theta[0])
-print(theta[1])
-
-i = 0
-
-# for i in range(m):
-    # price[i] = theta[0] + theta[1] * mileage[i]
-
-# plt.plot(mileage, data['price'], markersize=4)
-# plt.show()
-
-
-print(estimation((42000-mean)/std, theta[0], theta[1]))
->>>>>>> cc797f96b8339ea50ddaa7227a35e0cccc2cb2ad
+if __name__ == "__main__":
+    main()
