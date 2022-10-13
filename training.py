@@ -37,6 +37,9 @@ def main():
     pr.training(100, lr, m, mileage_norm, price)
     pr.scale(mileage_norm, mileage)
 
+    # save des tetha
+    pr.save_model()
+
     # on replace les données normalisé sur la nouvelle droite
     Yn = pr.theta1 * mileage + pr.theta0
 

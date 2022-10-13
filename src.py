@@ -17,6 +17,7 @@ class Prediction():
 
     def training(self, nb_train, lr, m, mileage_norm, price):
         for i in range (nb_train):
+            # la regression lineaire cf. sujet
             tmp0 = lr / m * sum((self.predict(mileage_norm) - price))
             tmp1 = lr / m * sum((self.predict(mileage_norm) - price) * mileage_norm)
 
@@ -33,3 +34,9 @@ class Prediction():
         # theth0 et theta1 finaux
         self.theta1 = (P2[1] - P2[0]) / (P1[1] - P1[0])
         self.theta0 = P2[0] - self.theta1 * P1[0]
+
+    def save_model(self):
+        filename = './model.csv'
+        f = open(filename, 'w+')
+        f.write(f'{self.theta0}, {self.theta1}')
+        f.close()
