@@ -1,28 +1,35 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Wed Oct 12 17:17:49 2022
+Created on Fri Oct 14 15:17:33 2022
 
+@author: anthelme
+"""
+
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Wed Oct 12 17:17:49 2022
 @author: anthelme
 """
 
 class Prediction():
 
-    def __init__(self, theta0, theta1):
-        self.theta0 = theta0
-        self.theta1 = theta1
+    def __init__(self):
+        self.theta0 = 0
+        self.theta1 = 0
+ 
 
     def predict(self, mileage):
         return self.theta0 + mileage * self.theta1
 
-    def training(self, nb_train, lr, m, mileage_norm, price):
-        for i in range (nb_train):
-            # la regression lineaire cf. sujet
-            tmp0 = lr / m * sum((self.predict(mileage_norm) - price))
-            tmp1 = lr / m * sum((self.predict(mileage_norm) - price) * mileage_norm)
+    def training(self, lr, m, mileage_norm, price):
+        # la regression lineaire cf. sujet
+        tmp0 = lr / m * sum((self.predict(mileage_norm) - price))
+        tmp1 = lr / m * sum((self.predict(mileage_norm) - price) * mileage_norm)
 
-            self.theta0 -= tmp0
-            self.theta1 -= tmp1
+        self.theta0 -= tmp0
+        self.theta1 -= tmp1
 
     def scale(self, mileage_norm, mileage):
         # re scale pour avoir theta0 et tetha1 finaux
