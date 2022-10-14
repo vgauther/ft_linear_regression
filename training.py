@@ -37,7 +37,7 @@ def main():
     pr.training(100, lr, m, mileage_norm, price)
     pr.scale(mileage_norm, mileage)
 
-    # save des tetha
+    # save des tetha dans model.csv
     pr.save_model()
 
     # on replace les données normalisé sur la nouvelle droite
