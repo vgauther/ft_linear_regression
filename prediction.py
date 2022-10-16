@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from src import Prediction
 #lib utilisée pour l'affichage
-import matplotlib.pyplot as plt
+
 
 def visualizer(user_mileage, predicted_price, t0, t1):
     try:

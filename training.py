@@ -40,7 +40,7 @@ def main():
     nb_train=100
     Cost = []
  
-    pr = Prediction()
+    pr = Prediction(0,0)
 
     for i in range (nb_train):
        
@@ -48,7 +48,7 @@ def main():
         
 
         # save des tetha dans model.csv
-        pr.save_model()
+    
 
         # on replace les données normalisé sur la nouvelle droite
         
@@ -59,6 +59,7 @@ def main():
 
         # affichage des points d'or
     pr.scale(mileage_norm, mileage)
+    pr.save_model()
     Yn = pr.theta1 * mileage + pr.theta0
     
     plt.xlabel('Nombre d\'iterations')
