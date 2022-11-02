@@ -3,14 +3,13 @@
 """
 Created on Wed Oct 12 18:13:37 2022
 
-@author: anthelme
+@author: vgauther
 """
 
 import pandas
 import matplotlib.pyplot as plt
 import numpy as np
 from src import Prediction
-#lib utilisée pour l'affichage
 
 
 def visualizer(user_mileage, predicted_price, t0, t1):

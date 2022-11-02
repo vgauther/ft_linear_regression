@@ -3,7 +3,7 @@
 """
 Created on Wed Oct 12 18:12:11 2022
 
-@author: anthelme
+@author: vgauther
 """
 
 import pandas
@@ -18,9 +18,9 @@ def estimation(x, theta):
 def cost_function(theta0, theta1,X,Y):
     global_cost  = 0
     for i in range(len(X)):
-        cost_i = ((theta0 + (theta1 * X[i])) - Y[i]) * ((theta0 + (theta1 * X[i])) - Y[i]) 
+        cost_i = ((theta0 + (theta1 * X[i])) - Y[i]) * ((theta0 + (theta1 * X[i])) - Y[i])
         global_cost+= cost_i
-    return (1/ (2 * len(X))) * global_cost
+    return (1 / (2 * len(X))) * global_cost
 
 def main():
 
@@ -39,36 +39,28 @@ def main():
     m = len(price)
     nb_train=100
     Cost = []
- 
+
     pr = Prediction(0,0)
 
     for i in range (nb_train):
-       
         pr.training(lr, m, mileage_norm, price)
-        
-
-        # save des tetha dans model.csv
-    
-
-        # on replace les données normalisé sur la nouvelle droite
-        
 
         # tetha finaux
         theta = [pr.theta0, pr.theta1]
         Cost.append(cost_function(theta[0], theta[1], mileage_norm, price))
 
-        # affichage des points d'or
     pr.scale(mileage_norm, mileage)
     pr.save_model()
     Yn = pr.theta1 * mileage + pr.theta0
-    
+
     plt.xlabel('Nombre d\'iterations')
     plt.ylabel('Cout d\'erreur global')
-    plt.plot(Cost,'ro', color = 'b')
+
+    plt.plot(Cost,'ro')
     plt.show()
-    
+
     plt.plot(mileage, Yn, markersize=4)
-    plt.plot(mileage, price,'ro', color='g')
+    plt.plot(mileage, price,'ro')
     plt.show()
 
 if __name__ == "__main__":
