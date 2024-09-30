@@ -10,6 +10,8 @@ import pandas
 import matplotlib.pyplot as plt
 import numpy as np
 from src import Prediction
+import sys 
+
 
 # fonction lineaire
 def estimation(x, theta):
@@ -25,7 +27,11 @@ def cost_function(theta0, theta1,X,Y):
 def main():
 
     # ouverture du dataset
-    data = pandas.read_csv("./data.csv")
+    try:
+        data = pandas.read_csv("./data.csv")
+    except FileNotFoundError:
+        print("No file data.csv -> No model.csv will be generated for the prediction")
+        sys.exit(0)
 
     # creation de tableau pour chaque colone
     mileage = np.array(data['km'])
