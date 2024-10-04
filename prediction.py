@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+1#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
 Created on Wed Oct 12 18:13:37 2022
@@ -27,7 +27,7 @@ def visualizer(user_mileage, predicted_price, t0, t1):
     plt.xlabel('Mileage (in miles)')
     plt.ylabel('Price (in $)')
 
-    plt.plot(user_mileage, predicted_price, 'o', color='r')
+    plt.plot(float(user_mileage), predicted_price, 'o', color='r')
     plt.plot(mileage, price, 'o', color='g')
     plt.show()
 
